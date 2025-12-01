@@ -17,13 +17,11 @@ export default function AppSidebarLayout({
 
     return (
         <AppShell variant="sidebar" >
-            {locale == 'fa' ? null : <AppSidebar />}
+            <AppSidebar />
             <AppContent variant="sidebar" className="overflow-x-hidden" dir={locale == 'fa' ? 'rtl' : 'ltr'}>
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
                 {children}
             </AppContent>
-            {locale == 'fa' ? <AppSidebar /> : null}
-
         </AppShell>
     );
 }
