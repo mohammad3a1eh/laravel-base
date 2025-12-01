@@ -15,16 +15,20 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { ChevronsUpDown } from 'lucide-react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export function NavUser() {
     const { auth } = usePage<SharedData>().props;
     const { state } = useSidebar();
     const isMobile = useIsMobile();
 
+    const { t, currentLocale } = useLaravelReactI18n();
+    const locale = currentLocale();
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
-                <DropdownMenu>
+                <DropdownMenu  dir={locale == 'fa' ? 'rtl' : 'ltr'}>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
