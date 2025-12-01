@@ -141,3 +141,8 @@
         @apply bg-background text-foreground;
     }
 }
+
+@keyframes shake {
+    0%, 100% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+}
