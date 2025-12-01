@@ -1,3 +1,13 @@
 {
-    "dashboard": "داشبورد"
+    "dashboard": "داشبورد",
+    "developer": "توسعه دهنده",
+    "maintenance": "حالت نگهداری",
+    "site maintenance mode": "حالت نگهداری وبسایت",
+    "status": "وضعیت",
+    "offline": "آفلاین (غیرقابل دسترس)",
+    "online": "آنلاین (در دسترس)",
+    "disable maintenance mode": "غیرفعال کردن حالت نگهداری",
+    "enable maintenance mode": "فعال کردن حالت نگهداری",
+    "github": "گیت هاب",
+    "website": "وب سایت"
 }

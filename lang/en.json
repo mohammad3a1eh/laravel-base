@@ -1,3 +1,13 @@
 {
-    "dashboard": "DDashboard"
+    "dashboard": "Dashboard",
+    "developer": "Developer",
+    "maintenance": "Maintenance",
+    "site maintenance mode": "Site Maintenance Mode",
+    "status": "Status",
+    "offline": "Offline",
+    "online": "Online",
+    "disable maintenance mode": "Disable Maintenance Mode",
+    "enable maintenance mode": "Enable Maintenance Mode",
+    "github": "Github",
+    "website": "Website"
 }
