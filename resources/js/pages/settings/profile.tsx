@@ -13,32 +13,34 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Profile settings',
-        href: edit().url,
-    },
-];
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export default function Profile({
-    mustVerifyEmail,
-    status,
-}: {
+                                    mustVerifyEmail,
+                                    status,
+                                }: {
     mustVerifyEmail: boolean;
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const { t } = useLaravelReactI18n();
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('profile settings'),
+            href: edit().url,
+        },
+    ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+            <Head title={t('profile settings')} />
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Profile information"
-                        description="Update your name and email address"
+                        title={t('profile information')}
+                        description={t('update your name and email address')}
                     />
 
                     <Form
@@ -51,7 +53,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">{t('name')}</Label>
 
                                     <Input
                                         id="name"
@@ -60,7 +62,7 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder={t('full name')}
                                     />
 
                                     <InputError
@@ -70,7 +72,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">{t('email address')}</Label>
 
                                     <Input
                                         id="email"
@@ -80,7 +82,8 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder={t('email address')}
+                                        dir="ltr"
                                     />
 
                                     <InputError
@@ -93,26 +96,22 @@ export default function Profile({
                                     auth.user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
-                                                Your email address is
-                                                unverified.{' '}
+                                                {t('your email address is unverified')}{' '}
                                                 <Link
                                                     href={send()}
                                                     as="button"
                                                     className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                                 >
-                                                    Click here to resend the
-                                                    verification email.
+                                                    {t('click here to resend the verification email')}
                                                 </Link>
                                             </p>
 
                                             {status ===
                                                 'verification-link-sent' && (
-                                                <div className="mt-2 text-sm font-medium text-green-600">
-                                                    A new verification link has
-                                                    been sent to your email
-                                                    address.
-                                                </div>
-                                            )}
+                                                    <div className="mt-2 text-sm font-medium text-green-600">
+                                                        {t('a new verification link has been sent to your email address')}
+                                                    </div>
+                                                )}
                                         </div>
                                     )}
 
@@ -121,7 +120,7 @@ export default function Profile({
                                         disabled={processing}
                                         data-test="update-profile-button"
                                     >
-                                        Save
+                                        {t('save')}
                                     </Button>
 
                                     <Transition
@@ -132,7 +131,7 @@ export default function Profile({
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            {t('saved')}
                                         </p>
                                     </Transition>
                                 </div>

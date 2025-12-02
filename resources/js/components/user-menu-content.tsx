@@ -11,6 +11,7 @@ import { edit } from '@/routes/profile';
 import { type User } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 interface UserMenuContentProps {
     user: User;
@@ -18,6 +19,8 @@ interface UserMenuContentProps {
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
+    const {t, currentLocale} = useLaravelReactI18n();
+    const locale = currentLocale();
 
     const handleLogout = () => {
         cleanup();
@@ -42,7 +45,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                         onClick={cleanup}
                     >
                         <Settings className="mr-2" />
-                        Settings
+                        {t("settings")}
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -56,7 +59,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     data-test="logout-button"
                 >
                     <LogOut className="mr-2" />
-                    Log out
+                    {t("log out")}
                 </Link>
             </DropdownMenuItem>
         </>

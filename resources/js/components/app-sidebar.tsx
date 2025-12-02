@@ -73,7 +73,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} groupLabel={t("global")}/>
                 <NavMain items={developerNavItems} groupLabel={t("developer")}/>
             </SidebarContent>
 

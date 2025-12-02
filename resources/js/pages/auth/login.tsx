@@ -10,6 +10,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 interface LoginProps {
     status?: string;
@@ -22,12 +23,15 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: LoginProps) {
+    const {t, currentLocale} = useLaravelReactI18n();
+    const locale = currentLocale();
+
     return (
         <AuthLayout
-            title="Log in to your account"
-            description="Enter your email and password below to log in"
+            title={t("log in to your account")}
+            description={t("enter your email and password below to log in")}
         >
-            <Head title="Log in" />
+            <Head title={t("login")} />
 
             <Form
                 {...store.form()}
@@ -38,7 +42,7 @@ export default function Login({
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email">{t("email address")}</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -54,14 +58,14 @@ export default function Login({
 
                             <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="password">{t("password")}</Label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
                                             className="ml-auto text-sm"
                                             tabIndex={5}
                                         >
-                                            Forgot password?
+                                            {t("forgot password?")}
                                         </TextLink>
                                     )}
                                 </div>
@@ -77,13 +81,13 @@ export default function Login({
                                 <InputError message={errors.password} />
                             </div>
 
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-3" dir={locale == 'fa' ? 'rtl' : 'ltr'}>
                                 <Checkbox
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
                                 />
-                                <Label htmlFor="remember">Remember me</Label>
+                                <Label htmlFor="remember">{t("remember me")}</Label>
                             </div>
 
                             <Button
@@ -94,15 +98,15 @@ export default function Login({
                                 data-test="login-button"
                             >
                                 {processing && <Spinner />}
-                                Log in
+                                {t("login")}
                             </Button>
                         </div>
 
                         {canRegister && (
                             <div className="text-center text-sm text-muted-foreground">
-                                Don't have an account?{' '}
+                                {t("don't have an account?")}{" "}
                                 <TextLink href={register()} tabIndex={5}>
-                                    Sign up
+                                    {t("sign up")}
                                 </TextLink>
                             </div>
                         )}

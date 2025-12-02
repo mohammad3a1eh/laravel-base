@@ -9,32 +9,34 @@ import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
-
-const sidebarNavItems: NavItem[] = [
-    {
-        title: 'Profile',
-        href: edit(),
-        icon: null,
-    },
-    {
-        title: 'Password',
-        href: editPassword(),
-        icon: null,
-    },
-    {
-        title: 'Two-Factor Auth',
-        href: show(),
-        icon: null,
-    },
-    {
-        title: 'Appearance',
-        href: editAppearance(),
-        icon: null,
-    },
-];
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
-    // When server-side rendering, we only render the layout on the client...
+    const { t } = useLaravelReactI18n();
+
+    const sidebarNavItems: NavItem[] = [
+        {
+            title: t('profile'),
+            href: edit(),
+            icon: null,
+        },
+        {
+            title: t('password'),
+            href: editPassword(),
+            icon: null,
+        },
+        {
+            title: t('two factor authentication'),
+            href: show(),
+            icon: null,
+        },
+        {
+            title: t('appearance'),
+            href: editAppearance(),
+            icon: null,
+        },
+    ];
+
     if (typeof window === 'undefined') {
         return null;
     }
@@ -44,8 +46,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <div className="px-4 py-6">
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title={t('settings')}
+                description={t('manage your profile and account settings')}
             />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">
@@ -60,14 +62,12 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 className={cn('w-full justify-start', {
                                     'bg-muted': isSameUrl(
                                         currentPath,
-                                        item.href,
+                                        item.href
                                     ),
                                 })}
                             >
                                 <Link href={item.href}>
-                                    {item.icon && (
-                                        <item.icon className="h-4 w-4" />
-                                    )}
+                                    {item.icon && <item.icon className="h-4 w-4" />}
                                     {item.title}
                                 </Link>
                             </Button>

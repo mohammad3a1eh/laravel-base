@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 interface ResetPasswordProps {
     token: string;
@@ -14,22 +15,25 @@ interface ResetPasswordProps {
 }
 
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
+    const {t, currentLocale} = useLaravelReactI18n();
+    const locale = currentLocale();
+
     return (
         <AuthLayout
-            title="Reset password"
-            description="Please enter your new password below"
+            title={t("reset password")}
+            description={t("please enter your new password below")}
         >
-            <Head title="Reset password" />
+            <Head title={t("reset password")} />
 
             <Form
                 {...update.form()}
                 transform={(data) => ({ ...data, token, email })}
-                resetOnSuccess={['password', 'password_confirmation']}
+                resetOnSuccess={["password", "password_confirmation"]}
             >
                 {({ processing, errors }) => (
                     <div className="grid gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">{t("email")}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -39,14 +43,11 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 className="mt-1 block w-full"
                                 readOnly
                             />
-                            <InputError
-                                message={errors.email}
-                                className="mt-2"
-                            />
+                            <InputError message={errors.email} className="mt-2" />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">{t("password")}</Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -54,14 +55,14 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 autoComplete="new-password"
                                 className="mt-1 block w-full"
                                 autoFocus
-                                placeholder="Password"
+                                placeholder={t("password")}
                             />
                             <InputError message={errors.password} />
                         </div>
 
                         <div className="grid gap-2">
                             <Label htmlFor="password_confirmation">
-                                Confirm password
+                                {t("confirm password")}
                             </Label>
                             <Input
                                 id="password_confirmation"
@@ -69,7 +70,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 name="password_confirmation"
                                 autoComplete="new-password"
                                 className="mt-1 block w-full"
-                                placeholder="Confirm password"
+                                placeholder={t("confirm password")}
                             />
                             <InputError
                                 message={errors.password_confirmation}
@@ -84,11 +85,12 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             data-test="reset-password-button"
                         >
                             {processing && <Spinner />}
-                            Reset password
+                            {t("reset password")}
                         </Button>
                     </div>
                 )}
             </Form>
         </AuthLayout>
+
     );
 }

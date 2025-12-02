@@ -2,6 +2,7 @@ import { Appearance, useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 import { LucideIcon, Monitor, Moon, Sun } from 'lucide-react';
 import { HTMLAttributes } from 'react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export default function AppearanceToggleTab({
     className = '',
@@ -9,10 +10,12 @@ export default function AppearanceToggleTab({
 }: HTMLAttributes<HTMLDivElement>) {
     const { appearance, updateAppearance } = useAppearance();
 
-    const tabs: { value: Appearance; icon: LucideIcon; label: string }[] = [
-        { value: 'light', icon: Sun, label: 'Light' },
-        { value: 'dark', icon: Moon, label: 'Dark' },
-        { value: 'system', icon: Monitor, label: 'System' },
+    const { t } = useLaravelReactI18n();
+
+    const tabs: { value: 'light' | 'dark' | 'system'; icon: LucideIcon; label: string }[] = [
+        { value: 'light', icon: Sun, label: t('light') },
+        { value: 'dark', icon: Moon, label: t('dark') },
+        { value: 'system', icon: Monitor, label: t('system') },
     ];
 
     return (
@@ -28,7 +31,7 @@ export default function AppearanceToggleTab({
                     key={value}
                     onClick={() => updateAppearance(value)}
                     className={cn(
-                        'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
+                        'flex items-center rounded-md px-3.5 py-1.5 transition-colors gap-3',
                         appearance === value
                             ? 'bg-white shadow-xs dark:bg-neutral-700 dark:text-neutral-100'
                             : 'text-neutral-500 hover:bg-neutral-200/60 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-700/60',
